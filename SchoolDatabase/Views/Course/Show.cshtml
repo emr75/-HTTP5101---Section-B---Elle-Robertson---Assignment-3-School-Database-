@@ -1,0 +1,17 @@
+﻿@model SchoolDatabase.Models.Course
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>@Model.CourseName </h2>
+<ul>
+    <li>Course ID: @Model.CourseId</li>
+    <li>Course Code: @Model.CourseCode</li>
+    <li>Teacher ID: @Model.TeachId</li>
+    <li>Start Date: @Model.StartDate</li>
+    <li>Finish Date: @Model.FinishDate</li>
+    <li>Course Name: @Model.CourseName</li>
+</ul>
+
+<a href="/Course/List">Back To Course List</a>
+

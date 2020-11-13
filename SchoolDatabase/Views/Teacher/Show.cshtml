@@ -1,0 +1,15 @@
+﻿@model SchoolDatabase.Models.Teacher
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>@Model.TeacherFname @Model.TeacherLname</h2>
+<ul>
+    <li>Teacher ID: @Model.TeacherId</li>
+    <li>Hire Date: @Model.HireDate</li>
+    <li>Salary: @Model.Salary</li>
+    <li>Employee Number: @Model.EmployeeNumber</li>
+</ul>
+
+<a href="/Teacher/List">Back To Teachers List</a>
+

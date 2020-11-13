@@ -1,0 +1,14 @@
+﻿@model SchoolDatabase.Models.Student
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>@Model.StudentFname @Model.StudentLname</h2>
+<ul>
+    <li>Student ID: @Model.StudentId</li>
+    <li>Enrolment Date: @Model.EnrolDate</li>
+    <li>Student Number: @Model.StudentNumber</li>
+</ul>
+
+<a href="/Student/List">Back To Students List</a>
+
