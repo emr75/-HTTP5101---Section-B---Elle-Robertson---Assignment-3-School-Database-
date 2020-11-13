@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search for a Course</h2>
+
+
+@* Search for a course based on Course ID number *@
+
+
+<form action="/Course/Show/@Model.CourseId" method="GET">
+
+
+    <input type="number" />
+    <input type="submit" value="FindCourse">
+</form>
+

@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search for a Teacher</h2>
+
+@* Search for a teacher based on Teacher ID number *@
+
+
+<form action="/Teacher/Show/@Model.TeacherId" method="POST">
+
+
+    <input type="number"/>
+    <input type="submit" value="FindTeacher">
+</form>
+

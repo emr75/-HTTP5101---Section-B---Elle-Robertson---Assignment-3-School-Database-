@@ -13,12 +13,12 @@ namespace SchoolDatabase.Controllers
     public class TeacherDataController : ApiController
     {
 
-        //The database context class which allows us to access our mySQL Database.
+        //The SchooldbContext is a database context class which allows us to access our mySQL Database known as schooldb.
         private SchoolDbContext SchoolDatabase = new SchoolDbContext();
 
         //This controller will access the teachers table of the schooldb database
         /// <summary>
-        /// Returns a list of Teachers in the system
+        /// Returns a list of teachers in the system
         /// </summary>
         /// <example>GET api/TeacherData/ListTeachers</example>
         /// <returns>
@@ -28,16 +28,16 @@ namespace SchoolDatabase.Controllers
 
         public IEnumerable<Teacher> ListTeachers()
         {
-            //Create an instance of a connection
+            //Instance of a connection
             MySqlConnection Conn = SchoolDatabase.AccessDatabase();
 
-            //Open the connection between the web server and database
+            //Connection between the web server and database
             Conn.Open();
 
-            //Establish a new command (query) for our database
+            //Established a new command (query) for our database
             MySqlCommand cmd = Conn.CreateCommand();
 
-            //SQL Query
+            //SQL Query from teacher table
             cmd.CommandText = "Select * from Teachers";
 
             //Gather Result Set of Query into a variable
@@ -55,7 +55,9 @@ namespace SchoolDatabase.Controllers
                 string TeacherLname = (string)ResultSet["teacherlname"];
                 string EmployeeNumber = (string)ResultSet["employeenumber"];
                 DateTime HireDate = (DateTime)ResultSet["hiredate"];
-                decimal Salary = (decimal)ResultSet["salary"];
+                decimal Salary = (decimal)ResultSet["salary"]; 
+
+                //Creating a NewTeacher object from the teacher class and using the above objects to create properties of this NewTeacher object
 
                 Teacher NewTeacher = new Teacher();
                 NewTeacher.TeacherId = TeacherId;
@@ -65,7 +67,7 @@ namespace SchoolDatabase.Controllers
                 NewTeacher.HireDate = HireDate;
                 NewTeacher.Salary = Salary;
 
-                //Add the teacher Name to the List
+                //Add the teacher name to the List
                 Teachers.Add(NewTeacher);
             }
 
@@ -108,6 +110,9 @@ namespace SchoolDatabase.Controllers
                 DateTime HireDate = (DateTime)ResultSet["hiredate"];
                 decimal Salary = (decimal)ResultSet["salary"];
 
+
+                //Creating a NewTeacher object from the teacher class for FindTeacher and using the above objects to create properties of this NewTeacher object
+
                 NewTeacher.TeacherId = TeacherId;
                 NewTeacher.TeacherFname = TeacherFname;
                 NewTeacher.TeacherLname = TeacherLname;
@@ -116,8 +121,10 @@ namespace SchoolDatabase.Controllers
                 NewTeacher.Salary = Salary;
             }
 
-            //Close the connection between the MySQL Database and the WebServer
+            //Close the connection between the MySQL Database, schooldb and the WebServer
             Conn.Close();
+
+            //return teacher object
 
             return NewTeacher;
         }

@@ -7,7 +7,7 @@ namespace SchoolDatabase.Models
 {
     public class Course
     {
-        //The following properties define a course
+        //The following properties define a Course Class
         public int CourseId;
         public string CourseCode;
         public Int64 TeachId;

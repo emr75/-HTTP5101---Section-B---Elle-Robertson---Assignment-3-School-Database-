@@ -13,31 +13,31 @@ namespace SchoolDatabase.Controllers
     public class StudentDataController : ApiController
     {
 
-        //The database context class which allows us to access our mySQL Database.
+        //The SchooldbContext is a database context class which allows us to access our mySQL Database known as schooldb.
         private SchoolDbContext SchoolDatabase = new SchoolDbContext();
 
-        //This controller will access the Students table of the schooldb database
+        //This controller will access the students table of the schooldb database
         /// <summary>
-        /// Returns a list of Students in the system
+        /// Returns a list of students in the system
         /// </summary>
         /// <example>GET api/StudentData/ListStudents</example>
         /// <returns>
-        /// A list of Students (first names and last names)
+        /// A list of students (first names and last names)
         /// </returns>
         [HttpGet]
 
         public IEnumerable<Student> ListStudents()
         {
-            //Create an instance of a connection
+            //Instance of a connection
             MySqlConnection Conn = SchoolDatabase.AccessDatabase();
 
-            //Open the connection between the web server and database
+            //Connection between the web server and database
             Conn.Open();
 
-            //Establish a new command (query) for our database
+            //Established a new command (query) for our database
             MySqlCommand cmd = Conn.CreateCommand();
 
-            //SQL Query
+            //SQL Query from student table
             cmd.CommandText = "Select * from Students";
 
             //Gather Result Set of Query into a variable
@@ -50,11 +50,13 @@ namespace SchoolDatabase.Controllers
             while (ResultSet.Read())
             {
                 //Access Column information by ther DB column name as an index
-                int StudentId = (int)ResultSet["studentid"];
+                int StudentId = Convert.ToInt32(ResultSet["studentid"]);
                 string StudentFname = (string)ResultSet["studentfname"];
                 string StudentLname = (string)ResultSet["studentlname"];
                 string StudentNumber = (string)ResultSet["studentnumber"];
                 DateTime EnrolDate = (DateTime)ResultSet["enroldate"];
+
+                //Creating a NewStudent object from the student class and using the above objects to create properties of this NewStudent object
 
                 Student NewStudent = new Student();
                 NewStudent.StudentId = StudentId;
@@ -63,7 +65,7 @@ namespace SchoolDatabase.Controllers
                 NewStudent.StudentNumber = StudentNumber;
                 NewStudent.EnrolDate = EnrolDate;
 
-                //Add the Student Name to the List
+                //Add the student name to the List
                 Students.Add(NewStudent);
             }
 
@@ -98,12 +100,13 @@ namespace SchoolDatabase.Controllers
             while (ResultSet.Read())
             {
                 //Access Column information by ther DB column name as an index
-                int StudentId = (int)ResultSet["Studentid"];
+                int StudentId = Convert.ToInt32(ResultSet["studentid"]);
                 string StudentFname = (string)ResultSet["studentfname"];
                 string StudentLname = (string)ResultSet["studentlname"];
                 string StudentNumber = (string)ResultSet["studentnumber"];
                 DateTime EnrolDate = (DateTime)ResultSet["enroldate"];
 
+                //Creating a NewStudent object for FindStudent from the student class and using the above objects to create properties of this NewStudent object
 
                 NewStudent.StudentId = StudentId;
                 NewStudent.StudentFname = StudentFname;
@@ -113,8 +116,10 @@ namespace SchoolDatabase.Controllers
 
             }
 
-            //Close the connection between the MySQL Database and the WebServer
+            //Close the connection between the MySQL Database, schooldb and the WebServer
             Conn.Close();
+
+            //return student object
 
             return NewStudent;
         }

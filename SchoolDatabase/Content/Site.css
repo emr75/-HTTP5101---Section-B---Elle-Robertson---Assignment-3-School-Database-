@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    border-style: groove;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -15,3 +16,27 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*change nav bbar stop green colour*/
+.navbar-inverse,
+.btn-primary {
+    background-color: #0f5617
+}
+/*align text to center*/
+h2, 
+li,
+.lists {
+    text-align: center;
+}
+
+/*Make lists red*/
+li,
+.lists {
+    color: red;
+    list-style: none;
+}
+/*Give h2 titles more paddign to make center*/
+h2 {
+    padding-left: 5%;
+}
+

@@ -7,7 +7,7 @@ namespace SchoolDatabase.Models
 {
     public class Teacher
     {
-        //The following properties define ann teacher
+        //The following properties define a Teacher Class
         public int TeacherId;
         public string TeacherFname;
         public string TeacherLname;
