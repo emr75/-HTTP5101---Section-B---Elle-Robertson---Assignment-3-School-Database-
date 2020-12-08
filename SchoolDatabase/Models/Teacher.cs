@@ -14,5 +14,10 @@ namespace SchoolDatabase.Models
         public string EmployeeNumber;
         public DateTime HireDate;
         public decimal Salary;
+    
+        //parameter-less constructor function for POST data to be absorbed into Teacher object
+        public Teacher() { }
+    
+    
     }
 }

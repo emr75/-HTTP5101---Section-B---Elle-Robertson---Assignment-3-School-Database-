@@ -44,7 +44,7 @@ namespace SchoolDatabase.Controllers
             MySqlDataReader ResultSet = cmd.ExecuteReader();
 
             //Create an empty list of Teachers' names
-            List<Teacher> Teachers = new List<Teacher> { };
+            List<Teacher> Teachers = new List<Teacher>{};
 
             //Loop through each row the Result Set
             while (ResultSet.Read())
@@ -73,8 +73,6 @@ namespace SchoolDatabase.Controllers
 
             //Close the connection between the MySQL Database and the WebServer
             Conn.Close();
-
-
 
             //Return the final list of Teacher names
             return Teachers;
@@ -127,6 +125,62 @@ namespace SchoolDatabase.Controllers
             //return teacher object
 
             return NewTeacher;
+        }
+
+        /// <summary>
+        /// Allows user to delete a teacher permanently from database
+        /// </summary>
+        /// <example>POST : /api/TeacherData/DeleteTeacher/8</example>
+        [HttpPost]
+        public void DeleteTeacher(int id)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = SchoolDatabase.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Delete from teachers where teacherid=@id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+        }
+        /// <summary>
+        /// Allows user to add a new teacher to the dataabse by inclduing their first name, last name, employee number, hire date, and salary
+        /// </summary>
+        /// <example>POST : /api/TeacherData/AddTeacher</example>
+        [HttpPost]
+        public void AddTeacher([FromBody]Teacher NewTeacher)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = SchoolDatabase.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "insert into teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) values (@TeacherFname,@TeacherLname,@EmployeeNumber, @HireDate, @Salary)";
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@HireDate", NewTeacher.HireDate);
+            cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
         }
     }
 }
