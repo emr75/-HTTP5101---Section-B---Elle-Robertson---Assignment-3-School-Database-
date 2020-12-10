@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SchoolDatabase.Models;
 using MySql.Data.MySqlClient;
+using System.Web.Http.Cors;
 
 
 namespace SchoolDatabase.Controllers
@@ -25,7 +26,6 @@ namespace SchoolDatabase.Controllers
         /// A list of teachers (first names and last names)
         /// </returns>
         [HttpGet]
-
         public IEnumerable<Teacher> ListTeachers()
         {
             //Instance of a connection
@@ -132,6 +132,7 @@ namespace SchoolDatabase.Controllers
         /// </summary>
         /// <example>POST : /api/TeacherData/DeleteTeacher/8</example>
         [HttpPost]
+        [EnableCors(origins:"*", methods:"*", headers:"*")]
         public void DeleteTeacher(int id)
         {
             //Create an instance of a connection
