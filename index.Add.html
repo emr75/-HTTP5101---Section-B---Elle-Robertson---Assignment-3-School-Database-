@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="./scripts/scripts.js"></script>
+        <title>Teacher Database</title>
+    </head>
+
+    <body>
+        <h1>Add to Teacher Database</h1>
+
+        <form id="addForm" method="POST" action="/Teacher/Create">
+            <label for="addTeacher">Add Teacher</label>
+            <div>
+                <label for="TeacherFname">First Name:</label>
+                <input type="text" id="teacherfname" name="TeacherFname">
+            </div>
+            <div>
+                <label for="TeacherLname">Last Name:</label>
+                <input type="text" id="teacherlname" name="TeacherLname">
+            </div>
+            <div>
+                <label for="EmployeeNumber">Employee Number:</label>
+                <input type="text" id="employeenumber" name="EmployeeNumber">
+            </div>
+            <div>
+                <label for="HireDate">Hire Date:</label>
+                <input type="date" id="hiredate" name="HireDate">
+            </div>
+            <div>
+                <label for="Salary">Salary:</label>
+                <input type="text" id="salary" name="Salary">
+            </div>
+            <div>
+                <button onclick="addTeacher()">Add</button>
+            </div>
+        </form>
+
+    </body>
+</html>
