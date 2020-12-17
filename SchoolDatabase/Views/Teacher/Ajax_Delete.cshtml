@@ -1,0 +1,25 @@
+﻿@model SchoolDatabase.Models.Teacher
+
+@{
+    ViewBag.Title = "AJAX DELETE";
+}
+<nav>
+    <a href="/Teacher/Show/@Model.TeacherId">Cancel</a>
+</nav>
+<h1>Delete from Teacher Database</h1>
+<p>This action cannot be undone!</p>
+
+@{
+    /* AJAX Request to add teacher */
+    /* No form submission needed */
+    /* button onclick will handle form submission */
+
+
+}
+<label for="removeTeacher">Teacher ID</label>
+<input type="text" id="removeTeacher">
+
+@{
+    //deleteTeacher() is a JS method defined in /Scripts/scripts.Delete.js
+}
+<button onclick="deleteTeacher()">Delete</button>

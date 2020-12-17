@@ -51,9 +51,9 @@ namespace SchoolDatabase.Controllers
             {
                 //Access Column information by ther DB column name as an index
                 int TeacherId = (int)ResultSet["teacherid"];
-                string TeacherFname = (string)ResultSet["teacherfname"];
-                string TeacherLname = (string)ResultSet["teacherlname"];
-                string EmployeeNumber = (string)ResultSet["employeenumber"];
+                string TeacherFname = (string)ResultSet["teacherfname"].ToString();
+                string TeacherLname = (string)ResultSet["teacherlname"].ToString();
+                string EmployeeNumber = (string)ResultSet["employeenumber"].ToString();
                 DateTime HireDate = (DateTime)ResultSet["hiredate"];
                 decimal Salary = (decimal)ResultSet["salary"]; 
 
@@ -159,6 +159,7 @@ namespace SchoolDatabase.Controllers
         /// </summary>
         /// <example>POST : /api/TeacherData/AddTeacher</example>
         [HttpPost]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
         public void AddTeacher([FromBody]Teacher NewTeacher)
         {
             //Create an instance of a connection
@@ -177,6 +178,49 @@ namespace SchoolDatabase.Controllers
             cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
             cmd.Parameters.AddWithValue("@HireDate", NewTeacher.HireDate);
             cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+        }
+        /// <summary>
+        /// Updates a Teacher on the MySQL Database. Non-Deterministic
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="TeacherInfo"></param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/2
+        /// form data / post data / request body
+        /// {
+        /// "TeacherFname" : "Joe",
+        /// "TeacherLname" : "Grudder",
+        /// "EmployeeNumber" : "N0934",
+        /// "HireDate" : "1990/03/02",
+        /// "Salary" : "22.00"
+        /// }
+        /// </example>
+        [HttpPost]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
+        public void UpdateTeacher(int id, [FromBody]Teacher TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = SchoolDatabase.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, employeenumber=@EmployeeNumber, salary=@Salary where teacherid=@teacherId";
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@HireDate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@TeacherId", id);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
